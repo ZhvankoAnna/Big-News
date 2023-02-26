@@ -22,6 +22,7 @@ async function getFetch() {
 getFetch()
   .then(data => createMarkup(data))
   .then(e => addAlreadyReadMarkup());
+
 export function createMarkup(arr) {
   const markup = arr
     .map(item => {
@@ -203,9 +204,9 @@ export function createValueMarkup(e) {
 
 export function addAlreadyReadMarkup() {
   if (!localStorage.getItem('id')) {
-    return 
+    return
   }
-  
+
   const articleOverlay = document.querySelectorAll('.read-overlay');
   articleOverlay.forEach(item => {
     JSON.parse(localStorage.getItem(`id`)).find(element => {

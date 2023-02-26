@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { createMarkup } from './markup';
-import notFound from '../img/not-found.png';
+import { createMarkup, addAlreadyReadMarkup } from './markup';
+import { createNotFoundMarkup, createFilterMarkup } from './create-markup';
 import throttle from 'lodash.throttle';
-import { addAlreadyReadMarkup } from './markup';
 
 const API_KEY = 'RX66xbpKTOQTP8uW8ejKF6pod0BTlz7b';
 const BASE_URL = 'https://api.nytimes.com/svc/news/v3/content/inyt/';
 
-const boxEl = document.querySelector('.filter-box');
+export const boxEl = document.querySelector('.filter-box');
 let arrForMarkup = [];
 export const newsListEl = document.querySelector('.news__list');
 
@@ -74,73 +73,73 @@ async function getFetchCategories() {
   }
 }
 
-function createFilterMarkup(arr) {
-  let categoriesArr;
-  let btnArr;
-  let markup;
+// function createFilterMarkup(arr) {
+//   let categoriesArr;
+//   let btnArr;
+//   let markup;
 
-  if (window.innerWidth >= 1280) {
-    btnArr = arr
-      .map((item, index) => {
-        if (index <= 5) {
-          return `<li><button class="filter-btn" data-value="${item.section}">${item.display_name}</button></li>`;
-        } else {
-          return;
-        }
-      })
-      .join('');
-    categoriesArr = arr
-      .map((item, index) => {
-        if (index > 5) {
-          return `<li class="filter-item" data-value="${item.section}">${item.display_name}</li>`;
-        } else {
-          return;
-        }
-      })
-      .join('');
+//   if (window.innerWidth >= 1280) {
+//     btnArr = arr
+//       .map((item, index) => {
+//         if (index <= 5) {
+//           return `<li><button class="filter-btn" data-value="${item.section}">${item.display_name}</button></li>`;
+//         } else {
+//           return;
+//         }
+//       })
+//       .join('');
+//     categoriesArr = arr
+//       .map((item, index) => {
+//         if (index > 5) {
+//           return `<li class="filter-item" data-value="${item.section}">${item.display_name}</li>`;
+//         } else {
+//           return;
+//         }
+//       })
+//       .join('');
 
-    markup = `<ul class="filter-btn-list">${btnArr}</ul>
-    <div><button class="filter-dropdowv-btn" data-value="others">Others</button>
-    <ul class="filter-list visually-hidden">${categoriesArr}</ul></div>`;
-  } else if (window.innerWidth >= 768 && window.innerWidth < 1280) {
-    btnArr = arr
-      .map((item, index) => {
-        if (index <= 3) {
-          return `<li><button class="filter-btn" data-value="${item.section}">${item.display_name}</button></li>`;
-        } else {
-          return;
-        }
-      })
-      .join('');
-    categoriesArr = arr
-      .map((item, index) => {
-        if (index > 3) {
-          return `<li class="filter-item" data-value="${item.section}">${item.display_name}</li>`;
-        } else {
-          return;
-        }
-      })
-      .join('');
+//     markup = `<ul class="filter-btn-list">${btnArr}</ul>
+//     <div><button class="filter-dropdowv-btn" data-value="others">Others</button>
+//     <ul class="filter-list visually-hidden">${categoriesArr}</ul></div>`;
+//   } else if (window.innerWidth >= 768 && window.innerWidth < 1280) {
+//     btnArr = arr
+//       .map((item, index) => {
+//         if (index <= 3) {
+//           return `<li><button class="filter-btn" data-value="${item.section}">${item.display_name}</button></li>`;
+//         } else {
+//           return;
+//         }
+//       })
+//       .join('');
+//     categoriesArr = arr
+//       .map((item, index) => {
+//         if (index > 3) {
+//           return `<li class="filter-item" data-value="${item.section}">${item.display_name}</li>`;
+//         } else {
+//           return;
+//         }
+//       })
+//       .join('');
 
-    markup = `<ul class="filter-btn-list">${btnArr}</ul>
-    <div><button class="filter-dropdowv-btn" data-value="others">Others</button>
-    <ul class="filter-list visually-hidden">${categoriesArr}</ul></div>`;
-  } else {
-    categoriesArr = arr
-      .map(item => {
-        return `<li class="filter-item" data-value="${item.section}">${item.display_name}</li>`;
-      })
-      .join('');
-    markup = `<button class="filter-dropdowv-btn" data-value="categories">Categories</button>
-      <ul class="filter-list visually-hidden">${categoriesArr}</ul>`;
-  }
+//     markup = `<ul class="filter-btn-list">${btnArr}</ul>
+//     <div><button class="filter-dropdowv-btn" data-value="others">Others</button>
+//     <ul class="filter-list visually-hidden">${categoriesArr}</ul></div>`;
+//   } else {
+//     categoriesArr = arr
+//       .map(item => {
+//         return `<li class="filter-item" data-value="${item.section}">${item.display_name}</li>`;
+//       })
+//       .join('');
+//     markup = `<button class="filter-dropdowv-btn" data-value="categories">Categories</button>
+//       <ul class="filter-list visually-hidden">${categoriesArr}</ul>`;
+//   }
 
-  boxEl.innerHTML = markup;
-}
+//   boxEl.innerHTML = markup;
+// }
 
-function createNotFoundMarkup() {
-  const markup = `<div class="not-found__box"><p class="not-found__text">We haven’t found news from this category</p>
-  <img class="not-found__img" src="${notFound}" alt="News not found" width="248px" height="198px" /></div>`;
-  newsListEl.innerHTML = markup;
-  document.querySelector(`.weather`).innerHTML = ``;
-}
+// function createNotFoundMarkup() {
+//   const markup = `<div class="not-found__box"><p class="not-found__text">We haven’t found news from this category</p>
+//   <img class="not-found__img" src="${notFound}" alt="News not found" width="248px" height="198px" /></div>`;
+//   newsListEl.innerHTML = markup;
+//   document.querySelector(`.weather`).innerHTML = ``;
+// }

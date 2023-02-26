@@ -44,9 +44,3 @@ async function getNewsByDate(value) {
     console.log(error);
   }
 }
-
-// function createMarkupByDate(news) {
-//     const markup = news.map(item => {
-//     })
-
-// }
