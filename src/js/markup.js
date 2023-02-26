@@ -19,13 +19,12 @@ async function getFetch() {
   }
 }
 
-getFetch()
-  .then(data => createMarkup(data))
-  .then(e => addAlreadyReadMarkup());
-
+getFetch().then(data => createMarkup(data));
 export function createMarkup(arr) {
   const markup = arr
     .map(item => {
+      // console.log(item.uri);
+      // console.log(item.uri.slice(14, 22));
       const date = new Date(item.published_date);
       const day = String(date.getDate()).padStart(2, '0');
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -104,7 +103,7 @@ export function createMarkup(arr) {
               Read more
             </a>
           </div>
-          <div class="read-overlay" data-id="a${item.uri.slice(
+          <div class="read-overlay" data-id="${item.uri.slice(
             14,
             22
           )}"><p class="overlay-text">Already read<p></div>
@@ -115,7 +114,9 @@ export function createMarkup(arr) {
 
   newsList.innerHTML = markup;
 }
+// const params = {
 
+// }
 async function getValueFetch(value) {
   try {
     const fullfield = await axios.get(
@@ -134,8 +135,8 @@ function handleInput(e) {
   e.preventDefault();
 
   getValueFetch(markupValue.value).then(data => {
+    console.log(data);
     createValueMarkup(data);
-    addAlreadyReadMarkup();
   });
 }
 
@@ -191,7 +192,7 @@ export function createValueMarkup(e) {
               Read more
             </a>
           </div>
-          <div class="read-overlay" data-id="a${item.uri.slice(
+          <div class="read-overlay" data-id="${item.uri.slice(
             14,
             22
           )}"><p class="overlay-text">Already read</p></div>
@@ -200,21 +201,4 @@ export function createValueMarkup(e) {
     .join('');
   newsList.innerHTML = valueMarkup;
   getWeatherCoords();
-}
-
-export function addAlreadyReadMarkup() {
-  if (!localStorage.getItem('id')) {
-    return
-  }
-
-  const articleOverlay = document.querySelectorAll('.read-overlay');
-  articleOverlay.forEach(item => {
-    JSON.parse(localStorage.getItem(`id`)).find(element => {
-      if (element === item.dataset.id) {
-        document
-          .querySelector(`div[data-id=${element}]`)
-          .classList.add(`overlay-shown`);
-      }
-    });
-  });
 }

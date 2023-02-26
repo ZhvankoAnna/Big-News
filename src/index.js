@@ -1,6 +1,5 @@
 import './js/weather';
 import './js/filter';
-import './js/create-markup';
 import './js/markup';
 import './js/calendar';
 import './js/read-more';

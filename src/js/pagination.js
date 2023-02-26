@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-export const numberOfPagination = document.querySelector('.pagination__list');
+const numberOfPagination = document.querySelector('.pagination__list');
 const API_KEY = 'RX66xbpKTOQTP8uW8ejKF6pod0BTlz7b';
 const BASE_URL = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
 async function getFetch() {
